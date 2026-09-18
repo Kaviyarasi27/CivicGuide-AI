@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CivicGuide AI — Construction & Civil Works Assistant</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">BW</div>
+        <div><strong>CivicGuide AI</strong><span>Construction Intelligence</span></div>
+      </div>
+      <nav>
+        <button class="nav-item active" data-view="dashboard">⌂ <span>Dashboard</span></button>
+        <button class="nav-item" data-view="project">＋ <span>New Project</span></button>
+        <button class="nav-item" data-view="estimate">▤ <span>Cost Estimate</span></button>
+        <button class="nav-item" data-view="products">◈ <span>Products</span></button>
+        <button class="nav-item" data-view="assistant">✦ <span>AI Assistant</span></button>
+      </nav>
+      <div class="sidebar-note">
+        <small>Prototype v0.1</small>
+        <p>Client showcase build. Estimates are indicative until connected to approved local rate data.</p>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">AI-ASSISTED CIVIL PROJECT PLANNING</p>
+          <h1 id="pageTitle">Construction command center</h1>
+        </div>
+        <button class="primary" data-view="project">+ Create project</button>
+      </header>
+
+      <section id="dashboard" class="view active">
+        <div class="hero">
+          <div>
+            <span class="pill">AI • Estimation • Guidance • Legal Support</span>
+            <h2>Plan the build.<br><em>Understand the cost.</em></h2>
+            <p>Capture project requirements, estimate major cost heads, compare products and ask construction or documentation questions in one workspace.</p>
+            <div class="hero-actions">
+              <button class="primary" data-view="project">Start a project</button>
+              <button class="secondary" data-view="assistant">Ask the AI</button>
+            </div>
+          </div>
+          <div class="hero-orb">
+            <div class="orb-ring"></div>
+            <div class="orb-core">AI</div>
+          </div>
+        </div>
+
+        <div class="metrics">
+          <div class="metric"><span>Project</span><strong id="metricProject">Not created</strong><small>Current workspace</small></div>
+          <div class="metric"><span>Built-up area</span><strong id="metricArea">—</strong><small>sq.ft</small></div>
+          <div class="metric"><span>Estimated total</span><strong id="metricTotal">₹0</strong><small>Indicative only</small></div>
+          <div class="metric"><span>Cost / sq.ft</span><strong id="metricRate">—</strong><small>Based on current inputs</small></div>
+        </div>
+
+        <div class="grid-2">
+          <article class="panel">
+            <div class="panel-head"><div><span class="section-kicker">PROJECT FLOW</span><h3>End-to-end planning</h3></div><span class="status">13 modules</span></div>
+            <div class="timeline" id="timeline"></div>
+          </article>
+          <article class="panel">
+            <div class="panel-head"><div><span class="section-kicker">AI COPILOT</span><h3>Try a question</h3></div></div>
+            <div class="suggestions">
+              <button data-question="Give me the construction stages for a 2-floor residential building.">Construction stages</button>
+              <button data-question="What information is needed to estimate the cost of a house?">Cost estimation</button>
+              <button data-question="What documents should I prepare before property registration?">Documentation</button>
+              <button data-question="What should I check before starting masonry work?">Masonry checklist</button>
+            </div>
+            <div class="mini-chat"><div class="avatar">✦</div><p id="miniReply">Ask about construction, materials, cost estimation, documentation or registration.</p></div>
+            <button class="secondary full" data-view="assistant">Open AI Assistant</button>
+          </article>
+        </div>
+      </section>
+
+      <section id="project" class="view">
+        <div class="section-title"><span class="section-kicker">STEP 01</span><h2>Project details</h2><p>These inputs drive the planning and estimation engine.</p></div>
+        <div class="form-grid">
+          <label>Project name<input id="projectName" placeholder="e.g. Greenfield Residence" /></label>
+          <label>Location / city<input id="location" placeholder="e.g. Chennai" /></label>
+          <label>Soil type<select id="soil"><option>Not specified</option><option>Clay</option><option>Sandy</option><option>Rocky</option><option>Mixed</option></select></label>
+          <label>Plot area (sq.ft)<input id="plotArea" type="number" placeholder="2000" /></label>
+          <label>Plot dimensions<input id="plotDimensions" placeholder="40 × 50 ft" /></label>
+          <label>Floors required<input id="floors" type="number" min="1" value="1" /></label>
+          <label>Building type<select id="buildingType"><option>Residential</option><option>Commercial</option></select></label>
+          <label>Bedrooms<input id="bedrooms" type="number" min="0" value="2" /></label>
+          <label>Bathrooms<input id="bathrooms" type="number" min="0" value="2" /></label>
+          <label>Kitchen<select id="kitchen"><option>1</option><option>2</option><option>Custom</option></select></label>
+          <label>Dining hall<select id="dining"><option>1</option><option>0</option></select></label>
+          <label>Staircase type<select id="staircase"><option>Dog-leg</option><option>Straight</option><option>U-shaped</option><option>Spiral</option></select></label>
+          <label>Parking<select id="parking"><option>1 car</option><option>2 cars</option><option>Two-wheeler only</option><option>None</option></select></label>
+        </div>
+
+        <div class="room-card">
+          <div class="panel-head"><div><span class="section-kicker">ROOM PLANNING</span><h3>Typical room dimensions</h3></div><span class="status">Editable</span></div>
+          <div class="dimension-row"><span>Bedroom 1</span><input value="12 × 10 ft" /></div>
+          <div class="dimension-row"><span>Bedroom 2</span><input value="10 × 12 ft" /></div>
+          <div class="dimension-row"><span>Hall</span><input value="15 × 18 ft" /></div>
+          <div class="dimension-row"><span>Kitchen</span><input value="10 × 10 ft" /></div>
+          <p class="muted">Prototype planning values only; final layout and structural design require professional design review.</p>
+        </div>
+
+        <button class="primary" id="saveProject">Save project & generate estimate →</button>
+      </section>
+
+      <section id="estimate" class="view">
+        <div class="section-title"><span class="section-kicker">STEP 02–17</span><h2>Cost estimation dashboard</h2><p>Category estimates can be overridden with project-specific quantities and approved rates.</p></div>
+        <div class="estimate-layout">
+          <div class="panel">
+            <div class="panel-head"><div><span class="section-kicker">COST HEADS</span><h3>Budget breakdown</h3></div><button class="text-btn" id="resetCosts">Reset demo values</button></div>
+            <div id="costRows"></div>
+            <div class="grand-total"><span>Estimated total</span><strong id="grandTotal">₹0</strong></div>
+            <div class="rate-box"><span>Indicative cost / built-up sq.ft</span><strong id="estimateRate">—</strong></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><div><span class="section-kicker">FORMULAS</span><h3>Transparent calculation</h3></div></div>
+            <div class="formula"><span>Paint cost</span><code>quantity × rate</code></div>
+            <div class="formula"><span>Doors / windows</span><code>number × unit cost</code></div>
+            <div class="formula"><span>Labour</span><code>workers × daily wage × days</code></div>
+            <div class="formula"><span>Contingency</span><code>subtotal × selected %</code></div>
+            <label class="inline-label">Contingency <select id="contingency"><option value="0">0%</option><option value="5">5%</option><option value="10">10%</option></select></label>
+            <button class="primary full" id="applyContingency">Apply contingency</button>
+            <div class="warning">All displayed rates are demo values. Replace them with approved local/vendor rates before commercial use.</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="products" class="view">
+        <div class="section-title"><span class="section-kicker">PRODUCT INTELLIGENCE</span><h2>Materials & product estimator</h2><p>Compare indicative products, units and quantities. Vendor integration comes later.</p></div>
+        <div class="filters"><input id="productSearch" placeholder="Search cement, steel, tiles, paint..." /><select id="productCategory"><option>All categories</option><option>Structural</option><option>Masonry</option><option>Flooring</option><option>Painting</option><option>Plumbing</option><option>Electrical</option><option>Doors & Windows</option></select></div>
+        <div class="product-grid" id="productGrid"></div>
+      </section>
+
+      <section id="assistant" class="view">
+        <div class="section-title"><span class="section-kicker">AI COPILOT</span><h2>Construction & legal guidance</h2><p>Prototype chat layer for construction planning, estimation and documentation/registration support.</p></div>
+        <div class="assistant-shell">
+          <div class="chat-panel">
+            <div class="chat-header"><div class="avatar">✦</div><div><strong>BuildWise Assistant</strong><small>RAG-ready prototype • source-grounded responses in production</small></div></div>
+            <div class="chat-messages" id="chatMessages">
+              <div class="message bot">Hello. I can help with construction stages, materials, indicative cost estimation, documentation and registration checklists. What are you planning?</div>
+            </div>
+            <div class="chat-input"><input id="chatInput" placeholder="Ask: What documents are needed for registration?" /><button id="sendChat">Send</button></div>
+          </div>
+          <aside class="chat-side">
+            <span class="section-kicker">QUICK INTENTS</span>
+            <button data-question="What are the main stages of house construction?">Construction workflow</button>
+            <button data-question="How can I estimate material cost?">Material estimation</button>
+            <button data-question="How is labour cost calculated?">Labour cost</button>
+            <button data-question="What documents are commonly required for property registration?">Registration documents</button>
+            <button data-question="What documentation should I maintain during construction?">Construction documentation</button>
+            <div class="legal-note"><strong>Legal guardrail</strong><p>Prototype answers are general information, not legal advice. Production responses should retrieve current official requirements for the relevant state/local authority and cite the source.</p></div>
+          </aside>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
